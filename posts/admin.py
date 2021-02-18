@@ -16,6 +16,6 @@ class GroupAdmin(admin.ModelAdmin):
     empty_value_display = "-пусто-"
 
 
-admin.site.register(Post, PostAdmin, GroupAdmin)
+admin.site.register(Post, PostAdmin)  # GroupAdmin
 
 # Register your models here.

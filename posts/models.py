@@ -1,13 +1,13 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.template.defaultfilters import slugify
+# from django.template.defaultfilters import slugify
 
 User = get_user_model()
 
 
 class Group(models.Model):
     title = models.CharField(max_length=100, null=False)
-    slug = models.SlugField(default=slugify(title), unique=True)
+    slug = models.SlugField(unique=True)
     description = models.TextField()
 
     def __str__(self):
@@ -21,10 +21,11 @@ class Post(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name="posts"
-        )
-    group = models.TextField(
+    )
+    group = models.ForeignKey(
         Group,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         blank=True,
-        null=True
-        )
+        null=True,
+        related_name="posts"
+    )
