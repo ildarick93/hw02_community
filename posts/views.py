@@ -5,11 +5,13 @@ from .models import Post, Group
 def index(request):
 
     latest = Post.objects.order_by('-pub_date')[:11]
-    return render(request, "index.html", {"posts": latest})
+    context = {"posts": latest}
+    return render(request, "index.html", context)
 
 
 def group_posts(request, slug):
 
     group = get_object_or_404(Group, slug=slug)
     posts = group.posts.all()[:12]
-    return render(request, "group.html", {"group": group, "posts": posts})
+    context = {"group": group, "posts": posts}
+    return render(request, "group.html", context)
